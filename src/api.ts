@@ -4,7 +4,8 @@ import { Product, CartItem, FulfillmentMethod } from './types';
 export const fetchProducts = async (): Promise<Product[]> => {
     const { data, error } = await supabase
         .from('products')
-        .select('*');
+        .select('*')
+        .order('name');
 
     if (error) {
         console.error('Error fetching products:', error);
@@ -41,8 +42,7 @@ export const createOrder = async (orderData: OrderData) => {
                 notes: orderData.notes,
                 status: 'pending'
             }
-        ])
-        .select();
+        ]);
 
     if (error) {
         console.error('Error creating order:', error);
