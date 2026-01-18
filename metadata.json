@@ -1,0 +1,7 @@
+{
+  "name": "The Home Bake Storefront",
+  "description": "A premium artisanal bakery storefront with a seamless ordering experience from menu browsing to WhatsApp-integrated checkout.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
