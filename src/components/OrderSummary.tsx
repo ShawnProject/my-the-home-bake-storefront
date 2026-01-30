@@ -11,7 +11,7 @@ interface OrderSummaryProps {
   deliveryFee: number;
   total: number;
   fulfillment: string;
-  deliveryDate: number;
+  deliveryDate: Date;
   deliveryTime: string;
   address: string;
   notes: string;
@@ -68,7 +68,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.text(`Method: ${fulfillment}`, margin, y);
-    doc.text(`Scheduled Date: Nov ${deliveryDate}, 2023`, margin + 60, y);
+    doc.text(`Scheduled Date: ${deliveryDate.toLocaleDateString()}`, margin + 60, y);
     doc.text(`Preferred Time: ${deliveryTime}`, margin + 120, y);
 
     if (fulfillment === 'Delivery' && address) {
@@ -159,7 +159,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
         total_amount: total,
         delivery_fee: deliveryFee,
         fulfillment_method: fulfillment as any, // Cast if necessary, or fix types
-        delivery_date: deliveryDate.toString(),
+        delivery_date: deliveryDate.toISOString().split('T')[0],
         delivery_time: deliveryTime,
         address: address,
         notes: notes
@@ -182,7 +182,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       `*Order ID:* #${orderId}\n\n` +
       `*Items:*\n${itemLines}\n\n` +
       `*Fulfillment:* ${fulfillment}\n` +
-      `*Date:* Nov ${deliveryDate}, 2023\n` +
+      `*Date:* ${deliveryDate.toLocaleDateString()}\n` +
       `*Time:* ${deliveryTime}\n` +
       (fulfillment === 'Delivery' && address ? `*Address:* ${address}\n` : '') +
       (notes ? `\n*Notes:* ${notes}\n` : '') +
@@ -259,7 +259,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col">
                   <span className="text-[10px] text-[#897261] dark:text-stone-500 uppercase font-bold">Scheduled Date</span>
-                  <span className="text-sm font-bold">Nov {deliveryDate}, 2023</span>
+                  <span className="text-sm font-bold">{deliveryDate.toLocaleDateString()}</span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-[#897261] dark:text-stone-500 uppercase font-bold">Preferred Time</span>

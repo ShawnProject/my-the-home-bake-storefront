@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [fulfillment, setFulfillment] = useState<FulfillmentMethod>('Delivery');
-  const [deliveryDate, setDeliveryDate] = useState<number>(10); // Nov 10
+  const [deliveryDate, setDeliveryDate] = useState<Date>(new Date());
   const [deliveryTime, setDeliveryTime] = useState<string>('10:00 AM');
   const [address, setAddress] = useState<string>('');
   const [notes, setNotes] = useState<string>('');

@@ -36,7 +36,7 @@ export const createOrder = async (orderData: OrderData) => {
                 total_amount: orderData.total_amount,
                 delivery_fee: orderData.delivery_fee,
                 fulfillment_method: orderData.fulfillment_method,
-                delivery_date: orderData.delivery_date.toString(), // Simplify date handling for now
+                delivery_date: orderData.delivery_date,
                 delivery_time: orderData.delivery_time,
                 address: orderData.address,
                 notes: orderData.notes,
