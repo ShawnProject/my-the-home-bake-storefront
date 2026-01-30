@@ -14,7 +14,7 @@ export interface Product {
   description: string;
   image: string;
   category: string;
-  status: 'In Stock' | 'Pre-order';
+  status: 'In Stock' | 'Pre-order' | 'Out of Stock';
   rating: number;
   reviews: number;
   sizes?: { name: string; feeds: string }[];

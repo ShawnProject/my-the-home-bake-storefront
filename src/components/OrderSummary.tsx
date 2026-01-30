@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { CartItem } from '../types';
 import { jsPDF } from 'jspdf';
-import { WHATSAPP_NUMBER } from '../constants';
 import { createOrder } from '../api';
 
 interface OrderSummaryProps {
@@ -17,10 +16,12 @@ interface OrderSummaryProps {
   notes: string;
   onBack: () => void;
   onComplete: () => void;
+  bakeryName: string;
+  whatsappNumber: string;
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({
-  cart, subtotal, deliveryFee, total, fulfillment, deliveryDate, deliveryTime, address, notes, onBack, onComplete
+  cart, subtotal, deliveryFee, total, fulfillment, deliveryDate, deliveryTime, address, notes, onBack, onComplete, bakeryName, whatsappNumber
 }) => {
   const [progress, setProgress] = useState(0);
   const [orderId] = useState(`HB-${Math.floor(Math.random() * 90000) + 10000}`);
@@ -46,7 +47,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
     // Brand Header
     doc.setFontSize(22);
     doc.setTextColor(238, 124, 43); // Primary Color (#ee7c2b)
-    doc.text("THE HOME BAKE", margin, y);
+    doc.text(bakeryName.toUpperCase(), margin, y);
 
     y += 10;
     doc.setFontSize(10);
@@ -144,7 +145,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(150, 150, 150);
-    doc.text("Thank you for choosing The Home Bake!", 105, 280, { align: "center" });
+    doc.text(`Thank you for choosing ${bakeryName}!`, 105, 280, { align: "center" });
 
     doc.save(`The-Home-Bake-Order-${orderId}.pdf`);
   };
@@ -193,7 +194,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       `I've also downloaded the PDF summary to share with you!`;
 
     // 3. Open WhatsApp
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 
     // 4. Clear cart and go home
@@ -244,7 +245,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-3">
               <span className="material-symbols-outlined text-primary text-3xl">bakery_dining</span>
             </div>
-            <p className="text-xl font-bold font-display">The Home Bake</p>
+            <p className="text-xl font-bold font-display">{bakeryName}</p>
             <div className="mt-2 text-center">
               <p className="text-[#897261] dark:text-stone-400 text-[10px] font-bold uppercase tracking-widest">Order ID: #{orderId}</p>
             </div>
